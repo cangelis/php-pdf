@@ -10,7 +10,7 @@ Add this to your `composer.json`
 
     {
         "require": {
-            "cangelis/php-pdf": "1.0.*"
+            "cangelis/pdf": "1.0.*"
         }
     }
 
