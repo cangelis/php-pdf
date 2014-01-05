@@ -1,0 +1,25 @@
+{
+    "name": "cangelis/pdf",
+    "description": "Yet another HTML to PDF Converter based on wkhtmltopdf",
+    "keywords": ["pdf","pdf converter", "html to pdf", "wkhtmltopdf"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Can Geliş",
+            "email": "geliscan@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.x"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "CanGelis\\PDF": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
