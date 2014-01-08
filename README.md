@@ -28,7 +28,7 @@ and run `composer.phar update`
 
 ## Documentation
 
-You can see all the available methods in the full [documentation](https://github.com/cangelis/l4pdf/blob/master/DOCUMENTATION.md) file
+You can see all the available methods in the full [documentation](https://github.com/cangelis/php-pdf/blob/master/DOCUMENTATION.md) file
 
 ## Contribution
 
