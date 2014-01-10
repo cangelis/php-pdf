@@ -24,7 +24,7 @@ and run `composer.phar update`
 
     echo $pdf->loadURL('http://www.laravel.com')->grayscale()->pageSize('A3')->orientation('Landscape')->generatePDF();
 
-    echo $pdf->loadHTMLFile('/home/can/index.html')->lowQuality()->pageSize('A2')->generatePDF();
+    echo $pdf->loadHTMLFile('/home/can/index.html')->lowquality()->pageSize('A2')->generatePDF();
 
 ## Documentation
 
