@@ -171,10 +171,25 @@ class PDF {
 	 */
 	public function executeCommand(&$output)
 	{
-		exec($this->cmd . ' ' . $this->getParams() . ' ' . $this->getInputSource() . ' ' . $this->getPDFPath(), $output, $return_var);
+		$descriptorspec = array(
+			0 => array("pipe", "r"), // stdin is a pipe that the child will read from
+			1 => array("pipe", "w"), // stdout is a pipe that the child will write to
+			2 => array("pipe", "w") // stderr is a pipe that the child will write to
+		);
+
+		$process = proc_open($this->cmd . ' ' . $this->getParams() . ' ' . $this->getInputSource() . ' ' . $this->getPDFPath(), $descriptorspec, $pipes);
+
+		$output = stream_get_contents($pipes[1]) . stream_get_contents($pipes[2]);
+
+		fclose($pipes[0]);
+		fclose($pipes[1]);
+		fclose($pipes[2]);
+
+		$return_var = proc_close($process);
 
 		return $return_var;
 	}
+
 
 	/**
 	 * Gets the parameters defined by user
@@ -277,6 +292,14 @@ class PDF {
 	protected function getHTMLPath()
 	{
 		return $this->folder . '/' . $this->fileName . '.html';
+	}
+
+	/**
+	 * Gets the error file's path in which stderr will be written
+	 */
+	protected function getTmpErrFilePath()
+	{
+		return $this->folder . '/' . $this->fileName . '.log';
 	}
 
 	/**
