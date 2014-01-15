@@ -22,7 +22,7 @@ and run `composer.phar update`
 
     echo $pdf->loadHTML('<b>Hello World</b>')->generatePDF();
 
-    echo $pdf->loadURL('http://www.cangelis.com')->save('/home/can/cangelis.pdf');
+    $pdf->loadURL('http://www.cangelis.com')->save('/home/can/cangelis.pdf');
 
     echo $pdf->loadURL('http://www.laravel.com')->grayscale()->pageSize('A3')->orientation('Landscape')->generatePDF();
 
