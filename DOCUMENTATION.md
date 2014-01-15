@@ -5,6 +5,7 @@
 Method | Description
 ------ | -----------
 `generatePDF()` | Returns the PDF file's binary. Ready to be `echo`'d
+`save('path/to/pdf/file.pdf')` | Saves the PDF content to the specified location
 `loadUrl('http://www.cangelis.com')` | PDF will be generated using the remote url
 `loadHTML('<strong>Hello World</strong>')` | PDF will be generated using the plain HTML String
 `loadHTMLFile('path/to/html/file.html')` | PDF will be generated using an HTML file

@@ -1,5 +1,7 @@
 <?php namespace CanGelis\PDF;
 
+use Symfony\Component\Filesystem\Filesystem;
+
 class PDF {
 
 	/**
@@ -141,6 +143,18 @@ class PDF {
 		$this->removeTmpFiles();
 
 		return $content;
+	}
+
+	/**
+	 * Saves the pdf content to the specified location
+	 *
+	 * @param $path
+	 */
+	public function save($path)
+	{
+		$fs = new Filesystem();
+
+		$fs->dumpFile($path, $this->generatePDF());
 	}
 
 	/**
