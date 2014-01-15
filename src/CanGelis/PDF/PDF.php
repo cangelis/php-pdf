@@ -148,8 +148,14 @@ class PDF {
 	 */
 	public function removeTmpFiles()
 	{
-		@unlink($this->getHTMLPath());
-		@unlink($this->getPDFPath());
+		if (file_exists($this->getHTMLPath()))
+		{
+			@unlink($this->getHTMLPath());
+		}
+		if (file_exists($this->getPDFPath()))
+		{
+			@unlink($this->getPDFPath());
+		}
 	}
 
 	/**
