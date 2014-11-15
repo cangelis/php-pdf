@@ -1,7 +1,7 @@
 <?php namespace CanGelis\PDF;
 
-use Symfony\Component\Filesystem\Filesystem;
-
+use League\Flysystem\AdapterInterface;
+use \League\Flysystem\Filesystem;
 class PDF {
 
 	/**
@@ -128,7 +128,7 @@ class PDF {
 	 * @return string
 	 * @throws PDFException
 	 */
-	public function generatePDF()
+	public function generate()
 	{
 		$return_var = $this->executeCommand($output);
 
@@ -145,16 +145,25 @@ class PDF {
 		return $content;
 	}
 
+    /**
+     * @deprecated Deprecated since version 2 please use "generate()" instead
+     */
+    public function generatePDF()
+    {
+        return $this->generate();
+    }
+
 	/**
 	 * Saves the pdf content to the specified location
 	 *
-	 * @param $path
+	 * @param $fileName
+     * @param AdapterInterface $adapter
 	 */
-	public function save($path)
+	public function save($fileName, AdapterInterface $adapter)
 	{
-		$fs = new Filesystem();
+		$fs = new Filesystem($adapter);
 
-		$fs->dumpFile($path, $this->generatePDF());
+		$fs->write($fileName, $this->generate());
 	}
 
 	/**

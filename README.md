@@ -20,13 +20,48 @@ and run `composer.phar update`
 
     $pdf = new CanGelis\PDF\PDF('/usr/bin/wkhtmltopdf');
 
-    echo $pdf->loadHTML('<b>Hello World</b>')->generatePDF();
+    echo $pdf->loadHTML('<b>Hello World</b>')->generate();
 
-    $pdf->loadURL('http://www.cangelis.com')->save('/home/can/cangelis.pdf');
+    echo $pdf->loadURL('http://www.laravel.com')->grayscale()->pageSize('A3')->orientation('Landscape')->generate();
 
-    echo $pdf->loadURL('http://www.laravel.com')->grayscale()->pageSize('A3')->orientation('Landscape')->generatePDF();
+    echo $pdf->loadHTMLFile('/home/can/index.html')->lowquality()->pageSize('A2')->generate();
 
-    echo $pdf->loadHTMLFile('/home/can/index.html')->lowquality()->pageSize('A2')->generatePDF();
+## Saving the output
+
+php-pdf uses [League\Flysystem](https://github.com/thephpleague/flysystem) to save the file to the local or remote filesystems.
+
+### Usage
+
+    $pdfObject->save(string $filename, League\Flysystem\AdapterInterface $adapter)
+
+### Examples
+
+    // Save the pdf to the local file system
+    echo $pdf->loadHTML('<b>Hello World</b>')->save("invoice.pdf", new League\Flysystem\Adapter\Local(__DIR__.'/path/to/root'));
+
+    // Save to AWS S3
+    $client = S3Client::factory([
+        'key'    => '[your key]',
+        'secret' => '[your secret]',
+    ]);
+    echo $pdf->loadHTML('<b>Hello World</b>')->save("invoice.pdf", new League\Flysystem\Adapter\AwsS3($client, 'bucket-name', 'optional-prefix'));
+
+    // Save to FTP
+    $ftpConf = [
+        'host' => 'ftp.example.com',
+        'username' => 'username',
+        'password' => 'password',
+
+        /** optional config settings */
+        'port' => 21,
+        'root' => '/path/to/root',
+        'passive' => true,
+        'ssl' => true,
+        'timeout' => 30,
+    ];
+    echo $pdf->loadHTML('<b>Hello World</b>')->save("invoice.pdf", new League\Flysystem\Adapter\Ftp($ftpConf));
+
+Please see all the available adapters on the [League\Flysystem](https://github.com/thephpleague/flysystem)'s documentation
 
 ## Documentation
 

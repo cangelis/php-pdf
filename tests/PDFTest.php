@@ -67,7 +67,7 @@ class PDFTest extends PHPUnit_Framework_TestCase {
 	{
 		$mock = m::mock('CanGelis\PDF\PDF[executeCommand]', array('echo', sys_get_temp_dir()));
 		$mock->shouldReceive('executeCommand')->once()->andReturn(1);
-		$mock->generatePDF();
+		$mock->generate();
 	}
 
 	public function testGeneratePdfGeneratesThePdf()
@@ -76,7 +76,7 @@ class PDFTest extends PHPUnit_Framework_TestCase {
 		$mock->shouldReceive('executeCommand')->once()->andReturn(0);
 		$mock->shouldReceive('removeTmpFiles')->once();
 		$mock->shouldReceive('getPDFContents')->once()->andReturn("");
-		$mock->generatePDF();
+		$mock->generate();
 	}
 
 	public function testParamsAddedUsingTheMethods()
