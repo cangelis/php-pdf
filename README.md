@@ -34,9 +34,9 @@ php-pdf uses [League\Flysystem](https://github.com/thephpleague/flysystem) to sa
 
     $pdfObject->save(string $filename, League\Flysystem\AdapterInterface $adapter, $overwrite)
 
-    `filename`: the name of the file you want to save with
-    `adapter`: FlySystem Adapter
-    `overwrite`: If set to `true` and the file exists it will be overwritten, otherwise an Exception will be thrown.
+`filename`: the name of the file you want to save with
+`adapter`: FlySystem Adapter
+`overwrite`: If set to `true` and the file exists it will be overwritten, otherwise an Exception will be thrown.
 
 ### Examples
 
