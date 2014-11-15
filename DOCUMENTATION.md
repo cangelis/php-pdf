@@ -4,8 +4,8 @@
 
 Method | Description
 ------ | -----------
-`generate()` | Returns the PDF file's binary. Ready to be `echo`'d
-`save($fileName, League\Flysystem\AdapterInterface $adapter)` | Saves the PDF content to the specified location
+`get()` | Returns the PDF file's binary. Ready to be `echo`'d
+`save($fileName, League\Flysystem\AdapterInterface $adapter, $overwrite)` | Saves the PDF content to the specified location
 `loadUrl('http://www.cangelis.com')` | PDF will be generated using the remote url
 `loadHTML('<strong>Hello World</strong>')` | PDF will be generated using the plain HTML String
 `loadHTMLFile('path/to/html/file.html')` | PDF will be generated using an HTML file

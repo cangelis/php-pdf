@@ -10,7 +10,7 @@ Add this to your `composer.json`
 
     {
         "require": {
-            "cangelis/pdf": "2.0.*"
+            "cangelis/pdf": "2.1.*"
         }
     }
 
@@ -20,11 +20,11 @@ and run `composer.phar update`
 
     $pdf = new CanGelis\PDF\PDF('/usr/bin/wkhtmltopdf');
 
-    echo $pdf->loadHTML('<b>Hello World</b>')->generate();
+    echo $pdf->loadHTML('<b>Hello World</b>')->get();
 
-    echo $pdf->loadURL('http://www.laravel.com')->grayscale()->pageSize('A3')->orientation('Landscape')->generate();
+    echo $pdf->loadURL('http://www.laravel.com')->grayscale()->pageSize('A3')->orientation('Landscape')->get();
 
-    echo $pdf->loadHTMLFile('/home/can/index.html')->lowquality()->pageSize('A2')->generate();
+    echo $pdf->loadHTMLFile('/home/can/index.html')->lowquality()->pageSize('A2')->get();
 
 ## Saving the output
 
@@ -32,19 +32,25 @@ php-pdf uses [League\Flysystem](https://github.com/thephpleague/flysystem) to sa
 
 ### Usage
 
-    $pdfObject->save(string $filename, League\Flysystem\AdapterInterface $adapter)
+    $pdfObject->save(string $filename, League\Flysystem\AdapterInterface $adapter, $overwrite)
+
+    `filename`: the name of the file you want to save with
+    `adapter`: FlySystem Adapter
+    `overwrite`: If set to `true` and the file exists it will be overwritten, otherwise an Exception will be thrown.
 
 ### Examples
 
     // Save the pdf to the local file system
-    echo $pdf->loadHTML('<b>Hello World</b>')->save("invoice.pdf", new League\Flysystem\Adapter\Local(__DIR__.'/path/to/root'));
+    $pdf->loadHTML('<b>Hello World</b>')
+        ->save("invoice.pdf", new League\Flysystem\Adapter\Local(__DIR__.'/path/to/root'));
 
     // Save to AWS S3
     $client = S3Client::factory([
         'key'    => '[your key]',
         'secret' => '[your secret]',
     ]);
-    echo $pdf->loadHTML('<b>Hello World</b>')->save("invoice.pdf", new League\Flysystem\Adapter\AwsS3($client, 'bucket-name', 'optional-prefix'));
+    $pdf->loadHTML('<b>Hello World</b>')
+        ->save("invoice.pdf", new League\Flysystem\Adapter\AwsS3($client, 'bucket-name', 'optional-prefix'));
 
     // Save to FTP
     $ftpConf = [
@@ -59,7 +65,15 @@ php-pdf uses [League\Flysystem](https://github.com/thephpleague/flysystem) to sa
         'ssl' => true,
         'timeout' => 30,
     ];
-    echo $pdf->loadHTML('<b>Hello World</b>')->save("invoice.pdf", new League\Flysystem\Adapter\Ftp($ftpConf));
+    $pdf->loadHTML('<b>Hello World</b>')
+        ->save("invoice.pdf", new League\Flysystem\Adapter\Ftp($ftpConf));
+
+    // Save to the multiple locations and echo to the screen
+    echo $pdf->loadHTML('<b>Hello World</b>')
+            ->save("invoice.pdf", new League\Flysystem\Adapter\Ftp($ftpConf))
+            ->save("invoice.pdf", new League\Flysystem\Adapter\AwsS3($client, 'bucket-name', 'optional-prefix'))
+            ->save("invoice.pdf", new League\Flysystem\Adapter\Local(__DIR__.'/path/to/root'))
+            ->get();
 
 Please see all the available adapters on the [League\Flysystem](https://github.com/thephpleague/flysystem)'s documentation
 

@@ -39,6 +39,14 @@ class PDF {
 	 */
 	protected $path = null;
 
+    /**
+     * PDF File's Binary content
+     *
+     * @var mixed
+     */
+
+    protected $contents = null;
+
 	/**
 	 * Available command parameters for wkhtmltopdf
 	 *
@@ -130,11 +138,11 @@ class PDF {
 	 */
 	public function generate()
 	{
-		$return_var = $this->executeCommand($output);
+		$returnVar = $this->executeCommand($output);
 
-		if ($return_var == 0)
+		if ($returnVar == 0)
 		{
-			$content = $this->getPDFContents();
+			$this->contents = $this->getPDFContents();
 		} else
 		{
 			throw new PDFException($output);
@@ -142,29 +150,39 @@ class PDF {
 
 		$this->removeTmpFiles();
 
-		return $content;
+		return $this;
 	}
 
-    /**
-     * @deprecated Deprecated since version 2 please use "generate()" instead
-     */
-    public function generatePDF()
-    {
-        return $this->generate();
-    }
 
 	/**
 	 * Saves the pdf content to the specified location
 	 *
 	 * @param $fileName
      * @param AdapterInterface $adapter
+     * @param bool $overwrite
+     *
+     * @return $this
 	 */
-	public function save($fileName, AdapterInterface $adapter)
+	public function save($fileName, AdapterInterface $adapter, $overwrite = false)
 	{
 		$fs = new Filesystem($adapter);
 
-		$fs->write($fileName, $this->generate());
+        if ($overwrite == true) {
+            $fs->put($fileName, $this->get());
+        } else {
+            $fs->write($fileName, $this->get());
+        }
+
+        return $this;
 	}
+
+    public function get()
+    {
+        if (is_null($this->contents)) {
+            $this->generate();
+        }
+        return $this->contents;
+    }
 
 	/**
 	 * Remove temporary HTML and PDF files
@@ -214,9 +232,7 @@ class PDF {
 		fclose($pipes[1]);
 		fclose($pipes[2]);
 
-		$return_var = proc_close($process);
-
-		return $return_var;
+		return proc_close($process);
 	}
 
 
