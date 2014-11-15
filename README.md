@@ -10,7 +10,7 @@ Add this to your `composer.json`
 
     {
         "require": {
-            "cangelis/pdf": "1.1.*"
+            "cangelis/pdf": "2.0.*"
         }
     }
 
