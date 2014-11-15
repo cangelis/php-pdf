@@ -1,7 +1,8 @@
 <?php namespace CanGelis\PDF;
 
 use League\Flysystem\AdapterInterface;
-use \League\Flysystem\Filesystem;
+use League\Flysystem\Filesystem;
+
 class PDF {
 
 	/**
@@ -39,13 +40,13 @@ class PDF {
 	 */
 	protected $path = null;
 
-    /**
-     * PDF File's Binary content
-     *
-     * @var mixed
-     */
+	/**
+	 * PDF File's Binary content
+	 *
+	 * @var mixed
+	 */
 
-    protected $contents = null;
+	protected $contents = null;
 
 	/**
 	 * Available command parameters for wkhtmltopdf
@@ -84,7 +85,8 @@ class PDF {
 		if (is_null($tmpFolder))
 		{
 			$this->folder = sys_get_temp_dir();
-		} else
+		}
+		else
 		{
 			$this->folder = $tmpFolder;
 		}
@@ -143,7 +145,8 @@ class PDF {
 		if ($returnVar == 0)
 		{
 			$this->contents = $this->getPDFContents();
-		} else
+		}
+		else
 		{
 			throw new PDFException($output);
 		}
@@ -157,32 +160,36 @@ class PDF {
 	/**
 	 * Saves the pdf content to the specified location
 	 *
-	 * @param $fileName
-     * @param AdapterInterface $adapter
-     * @param bool $overwrite
-     *
-     * @return $this
+	 * @param                  $fileName
+	 * @param AdapterInterface $adapter
+	 * @param bool             $overwrite
+	 *
+	 * @return $this
 	 */
 	public function save($fileName, AdapterInterface $adapter, $overwrite = false)
 	{
 		$fs = new Filesystem($adapter);
 
-        if ($overwrite == true) {
-            $fs->put($fileName, $this->get());
-        } else {
-            $fs->write($fileName, $this->get());
-        }
+		if ($overwrite == true)
+		{
+			$fs->put($fileName, $this->get());
+		}
+		else
+		{
+			$fs->write($fileName, $this->get());
+		}
 
-        return $this;
+		return $this;
 	}
 
-    public function get()
-    {
-        if (is_null($this->contents)) {
-            $this->generate();
-        }
-        return $this->contents;
-    }
+	public function get()
+	{
+		if (is_null($this->contents))
+		{
+			$this->generate();
+		}
+		return $this->contents;
+	}
 
 	/**
 	 * Remove temporary HTML and PDF files
@@ -249,7 +256,8 @@ class PDF {
 			if (is_numeric($key))
 			{
 				$result .= '--' . $value;
-			} else
+			}
+			else
 			{
 				$result .= '--' . $key . ' ' . '"' . $value . '"';
 			}
@@ -283,7 +291,8 @@ class PDF {
 		if (is_null($value))
 		{
 			$this->params[] = $key;
-		} else
+		}
+		else
 		{
 			$this->params[$key] = $value;
 		}
@@ -364,12 +373,14 @@ class PDF {
 			if (isset($args[0]))
 			{
 				$this->addParam($param, $args[0]);
-			} else
+			}
+			else
 			{
 				$this->addParam($param);
 			}
 			return $this;
-		} else
+		}
+		else
 		{
 			throw new PDFException('Undefined method: ' . $method);
 		}
