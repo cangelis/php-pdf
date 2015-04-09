@@ -1,5 +1,5 @@
 {
-    "name": "cangelis/pdf",
+    "name": "wemersonjanuario/pdf",
     "description": "Yet another HTML to PDF Converter based on wkhtmltopdf",
     "keywords": ["pdf","pdf converter", "html to pdf", "wkhtmltopdf"],
     "license": "MIT",
