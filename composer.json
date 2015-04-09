@@ -1,5 +1,5 @@
 {
-    "name": "cangelis/pdf",
+    "name": "wemersonjanuario/pdf",
     "description": "Yet another HTML to PDF Converter based on wkhtmltopdf",
     "keywords": ["pdf","pdf converter", "html to pdf", "wkhtmltopdf"],
     "license": "MIT",
@@ -7,12 +7,16 @@
         {
             "name": "Can Geliş",
             "email": "geliscan@gmail.com"
+        },
+        {
+            "name": "Wemerson Januario",
+            "email": "wemerson.januario@gmail.com",
+            "role": "Made some adjustments"
         }
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.x",
-        "league/flysystem": "0.3.*"
+        "league/flysystem": "~1.0"
     },
     "require-dev": {
         "mockery/mockery": "dev-master@dev"
