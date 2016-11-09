@@ -11,11 +11,10 @@
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.x",
         "league/flysystem": "0.3.*"
     },
     "require-dev": {
-        "mockery/mockery": "dev-master@dev"
+        "mockery/mockery": "0.9.5"
     },
     "autoload": {
         "psr-0": {

@@ -75,6 +75,9 @@ class PDF {
 
 	/**
 	 * Initialize temporary file names and folders
+	 *
+	 * @param $cmd
+	 * @param null $tmpFolder
 	 */
 	public function __construct($cmd, $tmpFolder = null)
 	{
@@ -308,7 +311,9 @@ class PDF {
 	 */
 	protected function methodToParam($method)
 	{
-		return snake_case($method, "-");
+		$replace = '$1-$2';
+
+		return strtolower(preg_replace('/(.)([A-Z])/', $replace, $method));
 	}
 
 	/**
