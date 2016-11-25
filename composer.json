@@ -14,7 +14,7 @@
         "league/flysystem": "0.3.*"
     },
     "require-dev": {
-        "mockery/mockery": "0.9.5"
+        "mockery/mockery": "0.9.*"
     },
     "autoload": {
         "psr-0": {
