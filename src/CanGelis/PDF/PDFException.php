@@ -1,10 +1,11 @@
-<?php namespace CanGelis\PDF;
+<?php
 
-class PDFException extends \Exception {
+namespace CanGelis\PDF;
 
-	public function __construct($message)
-	{
-		parent::__construct("PDF could not be created: " . json_encode($message));
-	}
-
+class PDFException extends \Exception
+{
+    public function __construct($message)
+    {
+        parent::__construct('PDF could not be created: '.json_encode($message));
+    }
 }
